@@ -12,11 +12,11 @@ package fayeserver
 
 import (
 	"fmt"
-	eventsource "github.com/antage/eventsource/http"
+	//eventsource "github.com/antage/eventsource.v1"
 	"github.com/gorilla/websocket"
 	"net/http"
 	"os"
-	"strings"
+	//	"strings"
 	"time"
 )
 
@@ -24,8 +24,8 @@ import (
 // WebSocket handling
 
 type Connection struct {
-	ws          *websocket.Conn
-	es          eventsource.EventSource
+	ws *websocket.Conn
+	//es          eventsource.EventSource
 	send        chan []byte
 	isWebsocket bool
 }
@@ -51,9 +51,9 @@ const (
 func (c *Connection) esWriter(f *FayeServer) {
 	fmt.Println("Writer started.")
 	ticker := time.NewTicker(pingPeriod)
-	defer func() {
-		c.es.Close()
-	}()
+	//	defer func() {
+	//		c.es.Close()
+	//	}()
 
 	for {
 		select {
@@ -108,7 +108,7 @@ func (c *Connection) reader(f *FayeServer) {
 
 func (c *Connection) esWrite(payload []byte) error {
 	fmt.Println("Writing to eventsource: ", string(payload))
-	c.es.SendMessage(string(payload), "", "")
+	//c.es.SendMessage(string(payload), "", "")
 	return nil
 }
 
@@ -202,7 +202,7 @@ handle: function(request, response) {
     response.writeHead(200, headers);
     response.end('');
   },
-*/
+
 
 func serveOther(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("serve other: ", r.URL)
@@ -219,7 +219,8 @@ func serveOther(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	return
 }
-
+*/
+/*
 func handleEventSource(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Handle event source: ", r.URL.Path)
 	// create a new connection for the event source action
@@ -235,7 +236,6 @@ func handleEventSource(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-/*
 handleEventSource: function(request, response) {
     var es       = new Faye.EventSource(request, response, {ping: this._options.ping}),
         clientId = es.url.split('/').pop(),
@@ -249,7 +249,6 @@ handleEventSource: function(request, response) {
       es = null;
     };
   },
-*/
 
 /*
 serverWs - provides an http handler for upgrading a connection to a websocket connection
@@ -314,14 +313,6 @@ func handleOptions(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-// EventSource.isEventSource = function(request) {
-//   if (request.method !== 'GET') return false;
-//   var accept = (request.headers.accept || '').split(/\s*,\s*/);
-//   return accept.indexOf('text/event-stream') >= 0;
-// };
-/*
-isEventSource
-*/
 func isEventSource(r *http.Request) bool {
 	fmt.Println("isEventSource? ", r.Method)
 	if r.Method != "GET" {
@@ -335,13 +326,10 @@ func isEventSource(r *http.Request) bool {
 
 var f *FayeServer
 
-/*
-Start the Faye server on the address/port given in the addr param
-*/
 func Start(addr string) {
 	f = NewFayeServer()
-	http.HandleFunc("/faye", serveWs)
-	http.HandleFunc("/", serveOther)
+	//http.HandleFunc("/faye", serveWs)
+	//http.HandleFunc("/", serveOther)
 
 	// serve static assets workaround
 	http.Handle("/file/", http.StripPrefix("/file", http.FileServer(http.Dir("/Users/paul/go/src/github.com/pcrawfor/fayego/runner"))))
