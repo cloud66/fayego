@@ -1,0 +1,19 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "SmBqqqR0T+1Ksx5zwCl295Vey0s=",
+			"path": "github.com/gorilla/websocket",
+			"revision": "9fbf129ff2a3cf2467f7d0021de2eb4d3aecc109",
+			"revisionTime": "2016-11-02T20:04:59Z"
+		},
+		{
+			"checksumSHA1": "mhvIMH8oAtOiEyg37zWKmgb+6v4=",
+			"path": "github.com/pborman/uuid",
+			"revision": "3d4f2ba23642d3cfd06bd4b54cf03d99d95c0f1b",
+			"revisionTime": "2016-10-05T15:16:09Z"
+		}
+	],
+	"rootPath": "github.com/cloud66/fayego"
+}

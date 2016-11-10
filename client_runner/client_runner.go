@@ -13,10 +13,11 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/pcrawfor/fayego/fayeclient"
 	"os"
 	"os/signal"
 	"syscall"
+
+	"github.com/cloud66/fayego/fayeclient"
 )
 
 func main() {

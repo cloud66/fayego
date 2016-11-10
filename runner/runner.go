@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/pcrawfor/fayego/fayeserver"
+
+	"github.com/cloud66/fayego/fayeserver"
 )
 
 func main() {
